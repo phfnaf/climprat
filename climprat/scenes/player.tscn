@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://mehm40rnqnda"]
+
+[ext_resource type="Texture2D" uid="uid://crd68d75pkl2t" path="res://assets/player/pisduc.png" id="1_3vyb7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
+size = Vector2(19, 21)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u8vuu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3vyb7")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="player" type="Node2D" unique_id=1063556872]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=104817083]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=2121018815]
+position = Vector2(0.5, 2.5)
+shape = SubResource("RectangleShape2D_bhunq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D" unique_id=675943406]
+root_node = NodePath("../..")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=2112165435]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_u8vuu")

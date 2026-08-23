@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://mehm40rnqnda"]
 
 [ext_resource type="Texture2D" uid="uid://crd68d75pkl2t" path="res://assets/player/pisduc.png" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://d2h6rclm53ae0" path="res://scripts/playerscript.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://cdr0sp8ylhrpa" path="res://scripts/state_machine.gd" id="3_dqkch"]
+[ext_resource type="Script" uid="uid://b0mu5s5mom6we" path="res://scripts/player_idle.gd" id="4_qlg0r"]
+[ext_resource type="Script" uid="uid://cy5v04txiw2pt" path="res://scripts/player_run.gd" id="5_qlg0r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
 size = Vector2(19, 21)
@@ -14,11 +18,20 @@ animations = [{
 "loop": 1,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3vyb7")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
 }]
 
 [node name="player" type="Node2D" unique_id=1063556872]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=104817083]
+script = ExtResource("1_g2els")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=2121018815]
 position = Vector2(0.5, 2.5)
@@ -30,3 +43,24 @@ root_node = NodePath("../..")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=2112165435]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_u8vuu")
+animation = &"idle"
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=953061245]
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="StateMachine" type="Node" parent="CharacterBody2D" unique_id=704603711]
+script = ExtResource("3_dqkch")
+
+[node name="Idle" type="Node" parent="CharacterBody2D/StateMachine" unique_id=1143287278]
+script = ExtResource("4_qlg0r")
+
+[node name="Run" type="Node" parent="CharacterBody2D/StateMachine" unique_id=1176652275]
+script = ExtResource("5_qlg0r")
+
+[node name="Jump" type="Node" parent="CharacterBody2D/StateMachine" unique_id=1571141094]
+
+[node name="Fall" type="Node" parent="CharacterBody2D/StateMachine" unique_id=115840628]
